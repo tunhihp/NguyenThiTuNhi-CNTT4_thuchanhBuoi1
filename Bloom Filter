@@ -1,0 +1,22 @@
+from pybloom_live import BloomFilter
+import nltk
+
+nltk.download('words')
+
+file_path = "bloom.txt"
+
+with open(file_path, 'r') as file:
+    text = file.read()
+
+words = nltk.word_tokenize(text)
+
+bloom_filter = BloomFilter(capacity=100000, error_rate=0.001)
+
+for word in words:
+    bloom_filter.add(word)
+
+check = "of"
+if check in bloom_filter:
+    print(f"Từ '{check}' Có trong văn bản.")
+else:
+    print(f"Từ '{check}' Không có trong văn bản.")
